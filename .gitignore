@@ -1,13 +1,2 @@
-/.vscode
-/Make
-/RosinRammler
-/binned
-/distributionModel
-/exponential
-/fixedValue
-/general
-/lnInclude
-/massRosinRammler
-/multiNormal
-/normal
-/uniform
+/gamma/.vscode/
+/limitScalar/.vscode/
