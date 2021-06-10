@@ -53,7 +53,7 @@ Usage
         max             <maxValue>;
 
         // Optional entries (runtime modifiable)
-        Scalar               <Scalarname>;
+        scalarName               <Scalarname>;
 
         // Mandatory/Optional (inherited) entries
         ...
@@ -145,7 +145,7 @@ public:
         virtual bool read(const dictionary& dict);
 
         //- Correct the scalar field
-        virtual void correct(volScalarField& U);
+        virtual void correct(volScalarField& scalarField);
 };
 
 

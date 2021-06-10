@@ -76,44 +76,42 @@ bool Foam::fv::limitScalar::read(const dictionary& dict)
 }
 
 
-void Foam::fv::limitScalar::correct(volScalarField& scalarField)
+void Foam::fv::limitScalar::correct(volScalarField& S)
 {
     const scalar maxScalar = max_;
 
     for (const label celli : cells_)
     {
-        const scalar scalarI = scalarField[celli];
+        const scalar scalarI = S[celli];
 
         if (scalarI > maxScalar)
         {
-            scalarField[celli] = maxScalar;
+            S[celli] = maxScalar;
         }
     }
-/*
+
     // handle boundaries in the case of 'all'
     if (selectionMode_ == smAll)
     {
-        volVectorField::Boundary& Ubf = U.boundaryFieldRef();
+        volScalarField::Boundary& Sbf = S.boundaryFieldRef();
 
-        forAll(Ubf, patchi)
+        forAll(Sbf, patchi)
         {
-            fvPatchVectorField& Up = Ubf[patchi];
+            volScalarField& Sp = Sbf[patchi];
 
-            if (!Up.fixesValue())
+            if (!Sp.fixesValue())
             {
                 forAll(Up, facei)
                 {
-                    const scalar magSqrUi = magSqr(Up[facei]);
-
-                    if (magSqrUi > maxSqrU)
+                    if (Sp[facei] > maxScalar)
                     {
-                        Up[facei] *= sqrt(maxSqrU/magSqrUi);
+                        Sp[facei] = maxScalar;
                     }
                 }
             }
         }
     }
-*/
+
     // We've changed internal values so give
     // boundary conditions opportunity to correct
     scalarField.correctBoundaryConditions();
