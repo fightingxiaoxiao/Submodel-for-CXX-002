@@ -114,7 +114,7 @@ void Foam::fv::limitScalar::correct(volScalarField& S)
 
     // We've changed internal values so give
     // boundary conditions opportunity to correct
-    scalarField.correctBoundaryConditions();
+    S.correctBoundaryConditions();
 }
 
 
