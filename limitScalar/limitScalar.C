@@ -101,7 +101,7 @@ void Foam::fv::limitScalar::correct(volScalarField& S)
 
             if (!Sp.fixesValue())
             {
-                forAll(Up, facei)
+                forAll(Sp, facei)
                 {
                     if (Sp[facei] > maxScalar)
                     {
