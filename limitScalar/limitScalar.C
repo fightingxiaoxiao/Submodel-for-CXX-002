@@ -80,6 +80,8 @@ void Foam::fv::limitScalar::correct(volScalarField& S)
 {
     const scalar maxScalar = max_;
 
+    label nLimit = 0;
+
     for (const label celli : cells_)
     {
         const scalar scalarI = S[celli];
@@ -87,8 +89,10 @@ void Foam::fv::limitScalar::correct(volScalarField& S)
         if (scalarI > maxScalar)
         {
             S[celli] = maxScalar;
+            nLimit++;
         }
     }
+    Info << nLimit << "cells are limited." << endl;
 
     // handle boundaries in the case of 'all'
     if (selectionMode_ == smAll)
@@ -97,7 +101,7 @@ void Foam::fv::limitScalar::correct(volScalarField& S)
 
         forAll(Sbf, patchi)
         {
-            volScalarField& Sp = Sbf[patchi];
+            fvPatchScalarField& Sp = Sbf[patchi];
 
             if (!Sp.fixesValue())
             {
