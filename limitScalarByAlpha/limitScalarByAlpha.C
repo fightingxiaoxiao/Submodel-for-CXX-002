@@ -85,17 +85,20 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
     volScalarField alpha_ = mesh_.lookupObject<volScalarField>("alpha.air");
 
     label nLimit = 0;
+    label nTotal = 0;
 
     for (const label celli : cells_)
     {
         const scalar alphaI = alpha_[celli];
+
+        nTotal++;
 
         if (alphaI < max_)
         {
             nLimit++;
         }
     }
-    Info << nLimit << "cells are limited." << endl;
+    Info << nLimit << " cells are limited in total "<< nTotal>> " cells." << endl;
 
     // handle boundaries in the case of 'all'
     if (selectionMode_ == smAll)
