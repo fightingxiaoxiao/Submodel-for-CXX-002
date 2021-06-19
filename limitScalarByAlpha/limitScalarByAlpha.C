@@ -98,7 +98,7 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
             nLimit++;
         }
     }
-    Info << nLimit << " cells are limited in total "<< nTotal>> " cells." << endl;
+    Info << nLimit << " cells are limited in total "<< nTotal << " cells." << endl;
 
     // handle boundaries in the case of 'all'
     if (selectionMode_ == smAll)
