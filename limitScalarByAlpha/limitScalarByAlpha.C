@@ -98,6 +98,10 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
             nLimit++;
         }
     }
+
+    reduce(nLimit, sumOp<label>());
+    reduce(nTotal, sumOp<label>());
+
     Info << nLimit << " cells are limited in total "<< nTotal << " cells." << endl;
 
     // handle boundaries in the case of 'all'
