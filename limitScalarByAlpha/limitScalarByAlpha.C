@@ -113,7 +113,7 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
 
         forAll(Sbf, patchi)
         {
-            fvPatchScalarField& alphap = alphaBf[patchi];
+            const fvPatchScalarField& alphap = alphaBf[patchi];
 
             if (!alphap.fixesValue())
             {
