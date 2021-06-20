@@ -83,7 +83,7 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
     const scalar maxScalar = max_;
 
     // 待优化
-    volScalarField &alpha_ = mesh_.lookupObject<volScalarField>("alpha.air");
+    volScalarField &alpha_ = &(mesh_.lookupObject<volScalarField>("alpha.air"));
 
     label nLimit = 0;
     label nTotal = 0;
@@ -109,7 +109,7 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
     if (selectionMode_ == smAll)
     {
         volScalarField::Boundary& Sbf = S.boundaryFieldRef();
-        volScalarField::Boundary& alphaBf = alpha_.boundaryFieldRef();
+        const volScalarField::Boundary& alphaBf = alpha_.boundaryFieldRef();
 
         forAll(Sbf, patchi)
         {
