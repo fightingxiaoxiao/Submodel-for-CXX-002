@@ -80,7 +80,7 @@ bool Foam::fv::limitScalarByAlpha::read(const dictionary& dict)
 
 void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
 {
-    const scalar maxScalar = max_;
+    const scalar maxAlpha = max_;
 
     // 待优化
     const volScalarField &alpha_ = mesh_.lookupObject<volScalarField>("alpha.air");
@@ -94,12 +94,13 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
 
         nTotal++;
 
-        if (alphaI < max_)
+        if (alphaI < maxAlpha)
         {
+            S[celli] = 0.;
             nLimit++;
         }
     }
-
+    
     reduce(nLimit, sumOp<label>());
     reduce(nTotal, sumOp<label>());
 
@@ -109,23 +110,24 @@ void Foam::fv::limitScalarByAlpha::correct(volScalarField& S)
     if (selectionMode_ == smAll)
     {
         volScalarField::Boundary& Sbf = S.boundaryFieldRef();
-        const volScalarField::Boundary& alphaBf = alpha_.boundaryFieldRef();
+        const volScalarField::Boundary& alphaBf = alpha_.boundaryField();
 
         forAll(Sbf, patchi)
         {
             const fvPatchScalarField& alphap = alphaBf[patchi];
+            fvPatchScalarField& Sp = Sbf[patchi];
 
-            if (!alphap.fixesValue())
+            if (!Sp.fixesValue())
             {
-                /*
+                
                 forAll(Sp, facei)
                 {
-                    if (Sp[facei] > maxScalar)
+                    if (alphap[facei] < maxAlpha)
                     {
-                        Sp[facei] = maxScalar;
+                        Sp[facei] = 0.;
                     }
                 }
-                */
+                
             }
         }
     }
