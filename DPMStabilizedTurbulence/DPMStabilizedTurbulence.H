@@ -142,12 +142,14 @@ class DPMStabilizedTurbulence
         const scalar rhop_;
         
         const word alphaName_;
-        
+
+        const word rhoName_;
+
         const word kName_;
 
         const word nutName_;
 
-        const word rhoName_;
+
         // Model coefficients
 
             //- k-epsilon model Cmu coefficient
