@@ -142,6 +142,10 @@ class DPMStabilizedTurbulence
         const scalar rhop_;
         
         const word alphaName_;
+        
+        const word kName_;
+
+        const word nutName_;
 
         const word rhoName_;
         // Model coefficients

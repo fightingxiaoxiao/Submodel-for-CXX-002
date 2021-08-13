@@ -53,6 +53,8 @@ Foam::fv::DPMStabilizedTurbulence::DPMStabilizedTurbulence(
       rhop_(coeffs_.get<scalar>("rhop")),
       alphaName_(coeffs_.get<word>("alphaName")),
       rhoName_(coeffs_.get<word>("rhoName")),
+      kName_(coeffs_.get<word>("kName")),
+      nutName_(coeffs_.get<word>("nutName")),
       Cmu_(dimensionedScalar::getOrAddToDict("Cmu", coeffs_, 0.09)),
       C_(dimensionedScalar::getOrAddToDict("C", coeffs_, 1.51)),
       lambda2_(dimensionedScalar::getOrAddToDict("lambda2", coeffs_, 0.1)),
@@ -61,25 +63,27 @@ Foam::fv::DPMStabilizedTurbulence::DPMStabilizedTurbulence(
     fieldNames_.setSize(2, "undefined");
 
     // Note: incompressible only
-    const auto *turbPtr = mesh_.findObject<incompressible::turbulenceModel>(
-        turbulenceModel::propertiesName);
+    //const auto *turbPtr = mesh_.findObject<incompressible::turbulenceModel>
+    //(
+    //    turbulenceModel::propertiesName);
 
-    if (turbPtr)
-    {
-        const tmp<volScalarField> &tk = turbPtr->k();
-        fieldNames_[0] = tk().name();
-
-        const tmp<volScalarField> &tnut = turbPtr->nut();
-        fieldNames_[1] = tnut().name();
-
-        Log << "    Applying model to " << fieldNames_[0] << " and "
-            << fieldNames_[1] << endl;
-    }
-    else
-    {
-        FatalErrorInFunction << "Unable to find incompressible turbulence model"
-                             << exit(FatalError);
-    }
+    //if (turbPtr)
+    //{
+    //    const tmp<volScalarField> &tk = turbPtr->k();
+    //    fieldNames_[0] = tk().name();
+    fieldNames_[0] = kName_;
+    //    const tmp<volScalarField> &tnut = turbPtr->nut();
+    //    fieldNames_[1] = tnut().name();
+    //
+    fieldNames_[1] = nutName_;
+    //    Log << "    Applying model to " << fieldNames_[0] << " and "
+    //        << fieldNames_[1] << endl;
+    //}
+    //else
+    //{
+    //    FatalErrorInFunction << "Unable to find DPM incompressible turbulence model"
+    //                         << exit(FatalError);
+    //}
 
     applied_.setSize(fieldNames_.size(), false);
 }
