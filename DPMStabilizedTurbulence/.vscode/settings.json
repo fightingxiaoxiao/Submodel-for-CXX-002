@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.csv": "csv",
+        "controlDict": "OpenFOAM",
+        "blockMeshDict": "OpenFOAM",
+        "*.so": "bat",
+        "DPMStabilizedTurbulence.C": "cpp"
+    },
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false, AlignTrailingComments: true}"
+}
