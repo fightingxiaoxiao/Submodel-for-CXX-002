@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${WM_PROJECT_DIR}/**"
+                "${FOAM_SRC}/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

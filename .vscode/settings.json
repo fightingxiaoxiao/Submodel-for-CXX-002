@@ -4,7 +4,11 @@
         "controlDict": "OpenFOAM",
         "blockMeshDict": "OpenFOAM",
         "*.so": "bat",
+        "*.H": "cpp",
         "limitScalar.C": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "limitScalarByAlpha.C": "cpp",
+        "correctOmega.C": "cpp",
+        "GeometricField.C": "cpp"
     }
 }
