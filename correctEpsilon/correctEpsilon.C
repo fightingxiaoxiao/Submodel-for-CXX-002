@@ -54,6 +54,7 @@ Foam::fv::correctEpsilon::correctEpsilon
 :
     cellSetOption(name, modelType, dict, mesh),
     epsilonName_(coeffs_.get<word>("epsilonName")),
+    kName_(coeffs_.get<word>("kName")),
     alphaName_(coeffs_.get<word>("alphaName")),
     nutName_(coeffs_.get<word>("nutName")),
     lowerLimit_(coeffs_.get<scalar>("lowerLimit")),
