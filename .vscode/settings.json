@@ -9,6 +9,7 @@
         "tuple": "cpp",
         "limitScalarByAlpha.C": "cpp",
         "correctOmega.C": "cpp",
-        "GeometricField.C": "cpp"
+        "GeometricField.C": "cpp",
+        "correctEpsilon.C": "cpp"
     }
 }
