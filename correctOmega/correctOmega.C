@@ -59,6 +59,7 @@ Foam::fv::correctOmega::correctOmega
     lowerLimit_(coeffs_.get<scalar>("lowerLimit")),
     upperLimit_(coeffs_.get<scalar>("upperLimit")),
     B_(coeffs_.get<scalar>("B")),
+    omegaMax_(coeffs_.get<scalar>("omegaMax")),
     betaStar_(coeffs_.getOrDefault<scalar>("betaStar", 0.09))
 {
     fieldNames_.setSize(1, omegaName_);
@@ -78,7 +79,7 @@ bool Foam::fv::correctOmega::read(const dictionary& dict)
         coeffs_.readEntry("lowerLimit", lowerLimit_);
         coeffs_.readEntry("upperLimit", upperLimit_);
         coeffs_.readEntry("B", B_);
-        coeffs_.readEntry("betaStar", betaStar_);
+        coeffs_.readEntry("omegaMax", omegaMax_);      coeffs_.readEntry("betaStar", betaStar_);
         return true;
     }
 
@@ -103,6 +104,11 @@ void Foam::fv::correctOmega::correct(volScalarField& S)
         if (alphaI < upperLimit_ && alphaI > lowerLimit_)
         {
             S[celli] = B_*6.*nut_[celli]/betaStar_/deltaX/deltaX;
+
+            if(S[celli] > omegaMax_)
+            {
+                S[celli] = omegaMax_;
+            }
             nCorrect++;
         }
 

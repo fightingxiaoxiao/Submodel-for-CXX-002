@@ -119,7 +119,7 @@ protected:
 
         scalar betaStar_;
 
-        
+        scalar omegaMax_;
 public:
 
     //- Runtime type information
